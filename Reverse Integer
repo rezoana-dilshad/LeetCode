@@ -19,6 +19,7 @@ public class ReverseInt {
 		if(x < 0)
 		{
 			negativeNum = true;
+			x = -x;
 		}
 		
 		int reverseNum = 0;
