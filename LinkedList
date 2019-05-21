@@ -1,0 +1,60 @@
+/**
+ * Write a function to get Nth node in a Linked List
+Write a GetNth() function an integer index and 
+returns the data value stored in the node at that index position.
+ */
+package linkedList;
+
+class Node{
+	int data;
+	Node next;
+	
+	Node(int d)
+	{
+		data = d;
+		next = null;
+	}
+}
+public class LinkedList {
+	
+	Node head; //first node, head of the list
+	public int getNth(int index)
+	{
+		Node current = head;
+		int count = 0;
+		
+		while(current != null)
+		{
+			if(count == index)
+			{
+				return current.data;
+			}
+			count++;
+			current = current.next;
+		}
+		assert(false); //if function was called for a non-existent element
+		return 0;
+	}
+	
+	public void push(int d)
+	{
+		Node nd = new Node(d); //create a new node and put data in it
+		nd.next = head; //make next of the new node as head;
+		head = nd; //Now move the pointer of head to the new node	
+	}
+
+	public static void main(String[] args)
+	{
+		LinkedList list = new LinkedList();
+		
+		list.push(1);
+		list.push(4);
+		list.push(3);
+		list.push(32);
+		list.push(2);
+		list.push(20);
+		list.push(5);
+		
+		System.out.println(list.getNth(3));
+	}
+}
