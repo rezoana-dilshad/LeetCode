@@ -26,7 +26,8 @@ import java.util.HashMap;
 public class FindTheDifference {
 	
 	public static char findDiff(String s, String t)
-	{
+	{	/***
+		//This solution does not work with the input 'a, aa'.... implemented a different solution below
 		HashMap<Character, Integer> hmap = new HashMap<>();
 		char c= '\0';
 		//Put the contents of String s in the HashMap
@@ -44,6 +45,17 @@ public class FindTheDifference {
 			}
 		}
 		return c;
+		*/
+		//Concatenate the two strings, and find the odd one out.
+		//using Bit Manipulation
+		String str = s.concat(t);
+		char diffChar = 0;
+		for(char c: str.toCharArray())
+		{
+			diffChar = (char) (diffChar ^ c);
+		}
+		return diffChar;
+		
 	
 	}
 	public static void main(String[] args)
@@ -53,8 +65,8 @@ public class FindTheDifference {
 		String t = "abcde";
 		System.out.println(findDiff(s,t));
 		
-		String u = "hello";
-		String v = "hellIo";
+		String u = "a";
+		String v = "aa";
 		System.out.println(findDiff(u,v));
 	}
 
