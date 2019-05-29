@@ -63,6 +63,7 @@ public class FlipAndInvertImage {
 		*/
 		
 		//blending both loops and Doing both flip and invert together
+		// invert while swapping by checking the value.
 		for(int i = 0; i < A.length; i++)
 		{
 			int left = 0;
