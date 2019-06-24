@@ -1,0 +1,125 @@
+package trees;
+
+import java.util.Stack;
+/**
+ * 
+ *
+ *617. Merge Two Binary Trees
+
+Given two binary trees and imagine that when you put one of them
+ to cover the other, some nodes of the two trees are overlapped 
+ while the others are not.
+
+You need to merge them into a new binary tree. The merge rule is that
+ if two nodes overlap, then sum node values up as 
+ the new value of the merged node. Otherwise, the NOT null node will
+  be used as the node of new tree.
+
+Example 1:
+
+Input: 
+	Tree 1                     Tree 2                  
+          1                         2                             
+         / \                       / \                            
+        3   2                     1   3                        
+       /                           \   \                      
+      5                             4   7                  
+Output: 
+Merged tree:
+	     3
+	    / \
+	   4   5
+	  / \   \ 
+	 5   4   7
+ 
+
+Note: The merging process must start from the root nodes of both trees.
+ */
+
+/*
+class Node{
+	int val;
+	Node right;
+	Node left;
+	
+	public Node(int val)
+	{
+		this.val = val;
+	}
+	
+}
+*/
+public class MergeTrees {
+	Node root;
+	
+	public Node mergeTrees(Node n1, Node n2)
+	{
+		//declare a stack of array of nodes
+		Stack<Node[]> stack = new Stack<>();
+		//push the roots of the both trees as an array
+		stack.push(new Node[] {n1, n2});
+		
+		//while the stack is not empty
+		while(!stack.isEmpty())
+		{
+			//the array of nodes that we are currently popping from stack
+			Node[] t = stack.pop();
+			
+			//if the node of any of the trees is null, continue next
+			if(t[0] == null || t[1] == null)
+			{
+				continue;
+			}
+			//add the values if 2 nodes exists from both trees
+			//at the same position
+			t[0].val += t[1].val;
+			
+			//if the left of 1st tree is absent, use the left child
+			//of the 2nd tree
+			if(t[0].left == null)
+			{
+				t[0].left = t[1].left;
+			}
+			//if both exists, we push the pair of both trees on to the stack
+			else
+			{
+				stack.push(new Node[] {t[0].left, t[1].left});
+			}
+			
+			//if the right of 1st tree is absent, use the right child
+			//of the 2nd tree
+			if(t[0].right == null)
+			{
+				t[0].right = t[1].right;
+			}
+			//if both exists, we push the pair of both trees on to the stack
+			else
+			{
+				stack.push(new Node[] {t[0].right, t[1].right});
+			}
+		}
+		return n1;
+	}
+	
+	public static void main(String[] args)
+	{
+		MergeTrees merge = new MergeTrees();
+		//MergeTrees t2 = new MergeTrees();
+		Node n1 = new Node(1);
+		n1.left = new Node(3);
+		n1.right = new Node(2);
+		
+		n1.left.left = new Node(5);
+		
+		
+		Node n2 = new Node(2);
+		n2.left = new Node(1);
+		n2.right = new Node(3);
+		
+		n2.left.right = new Node(4);
+		
+		n2.right.right = new Node(7);
+
+		System.out.println(merge.mergeTrees(n1, n2));
+	}
+}
